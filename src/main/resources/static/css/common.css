@@ -1,0 +1,71 @@
+@media (min-width: 768px) {
+.label-item {
+    text-align: right;
+}
+}
+
+.page-title {
+    font-size: 1.5rem;
+    min-height: 3rem;
+}
+.main-contents {
+    padding: 4.5rem 1rem 1rem;
+}
+.area-btn-group {
+    text-align: right;
+}
+.btn-transition {
+    min-width: 150px;
+}
+.detail-pane {
+    padding-top: 1rem;
+}
+a.nav-link.menu_login-user,
+a.nav-link.menu_login-user:hover {
+    color: #FFFFFF;
+}
+
+
+.navbar {
+    background-color: rgba(0, 112, 192, 1);
+}
+.navbar-brand {
+    font-weight: bold;
+}
+.form-group .form-check {
+    line-height: 1.5;
+    margin-top: calc(.375rem + 1px);
+    margin-bottom: calc(.375rem + 1px);
+}
+
+
+.table-search-pane {
+    padding-bottom: 1rem;
+}
+.table {
+    width: 100% !important;
+}
+.dataTables_filter {
+    display: none;
+}
+.table td,
+.table th {
+    padding: 0.5rem;
+}
+table.dataTable thead .sorting:before, table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+    bottom: 0.6em
+}
+.table tbody tr.dataTables-row {
+    cursor: pointer;
+}
+.table tbody tr.dataTables-row:hover {
+    background-color: rgba(255, 192, 0, 0.5);
+}
+.table tbody tr.dataTables-row__selected,
+.table tbody tr.dataTables-row__selected:hover {
+    background-color: rgba(255, 192, 0, 1);
+}

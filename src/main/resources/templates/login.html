@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/head :: head('login')">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+            <a th:href="@{/portal}" class="navbar-brand">
+                <span th:text="#{common.product}"></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <!--  -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="main-contents">
+            <div th:if="${param.error}" th:text="#{login.message.failed}"></div>
+            <div th:if="${param.logout}" th:text="#{login.message.logout}"></div>
+
+            <div class="text-center">
+                <form class="form-login" th:action="@{/auth}" method="post">
+                    <label for="username" class="sr-only" th:text="#{login.label.username}"></label>
+                    <input type="text" id="username" name="username" class="form-control" th:placeholder="#{login.label.username}" autofocus>
+                    <label for="password" class="sr-only" th:text="#{login.label.password}"></label>
+                    <input type="password" id="password" name="password" class="form-control" th:placeholder="#{login.label.password}">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        <span th:text="#{login.button.login}"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/head :: head('users')">
+</head>
+<body>
+    <header th:replace="fragment/menu :: menu('setting', 'users')"></header>
+
+    <main>
+        <div class="main-contents">
+            <div class="page-title " th:text="#{title.users.list}"></div>
+
+            <div class="table-search-pane">
+                <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#table-search" aria-expand="false" aria-controls="#table-search" th:text="#{datatables.search}"></button>
+                <div class="collapse" id="table-search">
+                    <div class="card card-body">
+                        <div class="form-group row">
+                            <label for="table-search-username" class="col-md-3 col-form-label">
+                                <span th:text="#{users.username}"></span> :
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="table-search-username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="table-search-fullname" class="col-md-3 col-form-label">
+                                <span th:text="#{users.fullname}"></span> :
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="table-search-fullname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">
+                                <span th:text="#{users.enabled}"></span> :
+                            </label>
+                            <div class="col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="table-search-enabled__enable">
+                                    <label class="form-check-label" for="table-search-enabled__enable" th:text="#{users.enabled.enable}"></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="table-search-enabled__disable">
+                                    <label class="form-check-label" for="table-search-enabled__disable" th:text="#{users.enabled.disable}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="table-search-groups" class="col-md-3 col-form-label">
+                                <span th:text="#{users.groups}"></span> :
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="table-search-groups" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="table-search-comment" class="col-md-3 col-form-label">
+                                <span th:text="#{users.comment}"></span> :
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="table-search-comment" class="form-control">
+                            </div>
+                        </div>
+                        <button type="button" id="btn-table-users-search" class="btn btn-primary my-2" th:text="#{datatables.search}"></button>
+                    </div>
+                </div>
+            </div>
+            <table id="table-users" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th th:text="#{users.username}"></th>
+                        <th th:text="#{users.fullname}"></th>
+                        <th th:text="#{users.enabled}"></th>
+                        <th th:text="#{users.groups}"></th>
+                        <th th:text="#{users.comment}"></th>
+                        <th th:text="#{users.updated_date}"></th>
+                    </tr>
+                </thead>
+                <tbody/>
+            </table>
+
+            <div id="detail" class="detail-pane">
+                <!--  -->
+            </div>
+        </div>
+    </main>
+
+    <script th:inline="javascript">
+    $(function() {
+        var usersList = new SBT.Users.List(
+            {
+                ajaxsource: /*[[@{/users/getList}]]*/,
+                createFrom: /*[[@{/users/createForm}]]*/,
+                show: /*[[@{/users/}]]*/,
+                updateFrom: /*[[@{/users/createForm}]]*/,
+                'delete': /*[[@{/users/delete}]]*/
+            }
+        );
+
+        usersList.init();
+    });
+    </script>
+</body>
+</html>

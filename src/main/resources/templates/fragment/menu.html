@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:custom-tag="http://custom-tag.v3.sbt.sapphires.market.com">
+<head>
+</head>
+<body>
+    <header th:fragment="menu(main, sub)">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+            <a th:href="@{/portal}" class="navbar-brand" th:text="#{common.product}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" th:href="@{/}">何か</a><!-- ★ -->
+                    </li>
+                    <li sec:authorize="hasAnyAuthority('USER_SHOW','SETTING_SHOW')" class="nav-item dropdown">
+                        <a th:classappend="${main eq 'setting' ? 'active' : ''}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu.settings}"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a th:classappend="${sub eq 'users' ? 'active' : ''}" th:href="@{/users}" class="dropdown-item" th:text="#{menu.users}"></a>
+                            <a th:classappend="${sub eq 'settings' ? 'active' : ''}" th:href="@{/settings}" class="dropdown-item" th:text="#{menu.settings}"></a>
+                        </div>
+                    </li>
+                </ul>
+
+                <a class="nav-link menu_login-user" th:href="@{/users/info}">
+                    <span custom-tag:login-user></span>
+                </a>
+                <form th:action="@{/logout}" method="post" class="form-inline mt-2 mt-md-0">
+                    <button type="submit" class="btn btn-secondary btn-sm" th:text="#{login.button.logout}"></button>
+                </form>
+            </div>
+        </nav>
+    </header>
+</body>

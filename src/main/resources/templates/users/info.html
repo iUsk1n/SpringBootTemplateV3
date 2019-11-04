@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/head :: head('users')">
+</head>
+<body>
+    <header th:replace="fragment/menu :: menu('', '')"></header>
+
+    <main>
+        <div class="main-contents">
+            <div class="page-title " th:text="#{title.users.info}"></div>
+
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.username}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.username}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.fullname}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.fullname}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.comment}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.comment}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.groups}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.groupsString}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.enabled}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.enabledString}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.created_date}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.createdDateString}"></div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-item">
+                    <span th:text="#{users.updated_date}"></span> :
+                </label>
+                <div class="col-md-9" th:text="${user.updatedDateString}"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

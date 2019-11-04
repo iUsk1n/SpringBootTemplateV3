@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.sapphires.sbt.v3.mapper.LoginUserMapper">
+    <resultMap id="JoinAllResultMap" type="com.market.sapphires.sbt.v3.entity.LoginUser">
+        <id property="id" column="u_id" />
+        <result property="username" column="u_username" />
+        <result property="fullname" column="u_fullname" />
+        <result property="password" column="u_password" />
+        <result property="comment" column="u_comment" />
+        <result property="enabled" column="u_enabled" />
+        <result property="locked" column="u_locked" />
+        <result property="createdDate" column="u_created_date" />
+        <result property="updatedDate" column="u_updated_date" />
+        <result property="version" column="u_version" />
+        <collection property="groups" ofType="com.market.sapphires.sbt.v3.entity.LoginUserGroup">
+            <id property="id" column="g_id" />
+            <result property="name" column="g_name" />
+            <result property="version" column="g_version" />
+            <collection property="permissions" ofType="com.market.sapphires.sbt.v3.entity.LoginUserPermission">
+                <result property="authority" column="p_permissions"
+                        javaType="com.market.sapphires.sbt.v3.entity.LoginUserPermission"
+                        typeHandler="com.market.sapphires.sbt.v3.mapper.LoginUserPermissionTypeHandler" />
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!--
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todo (title, details, finished) VALUES (#{title}, #{details}, #{finished})
+    </insert>
+    -->
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM login_user
+    </select>
+
+    <select id="selectOne" parameterType="long" resultMap="JoinAllResultMap">
+        SELECT
+            u.id AS u_id
+           ,u.username AS u_username
+           ,u.fullname AS u_fullname
+           ,u.password AS u_password
+           ,u.comment AS u_comment
+           ,u.enabled AS u_enabled
+           ,u.locked AS u_locked
+           ,u.created_date AS u_created_date
+           ,u.updated_date AS u_updated_date
+           ,u.version AS u_version
+           ,g.id AS g_id
+           ,g.name AS g_name
+           ,g.version AS g_version
+           ,p.permissions AS p_permissions
+        FROM
+            login_user u
+        INNER JOIN
+            login_user_groups ug ON users_id = u.id
+        INNER JOIN
+            login_user_group g ON g.id = ug.groups_id
+        INNER JOIN
+            login_user_group_permissions p ON p.login_user_group_id = g.id
+        WHERE
+            u.id = #{id}
+    </select>
+
+    <select id="selectByUsername" parameterType="string" resultMap="JoinAllResultMap">
+        SELECT
+            u.id AS u_id
+           ,u.username AS u_username
+           ,u.fullname AS u_fullname
+           ,u.password AS u_password
+           ,u.comment AS u_comment
+           ,u.enabled AS u_enabled
+           ,u.locked AS u_locked
+           ,u.created_date AS u_created_date
+           ,u.updated_date AS u_updated_date
+           ,u.version AS u_version
+           ,g.id AS g_id
+           ,g.name AS g_name
+           ,g.version AS g_version
+           ,p.permissions AS p_permissions
+        FROM
+            login_user u
+        INNER JOIN
+            login_user_groups ug ON users_id = u.id
+        INNER JOIN
+            login_user_group g ON g.id = ug.groups_id
+        INNER JOIN
+            login_user_group_permissions p ON p.login_user_group_id = g.id
+        WHERE
+            u.username = #{username}
+    </select>
+
+    <select id="count4DataTables" parameterType="com.market.sapphires.sbt.v3.form.datatables.request.UsersDataTablesRequest" resultType="int">
+        SELECT
+            COUNT(DISTINCT(u.id))
+        FROM
+            login_user u
+        LEFT OUTER JOIN
+            login_user_groups ug ON users_id = u.id
+        LEFT OUTER JOIN
+            login_user_group g ON g.id = ug.groups_id
+        LEFT OUTER JOIN
+            login_user_group_permissions p ON p.login_user_group_id = g.id
+        <where>
+            <if test="searchUsername != null">
+                u.username LIKE '%${searchUsername}%'
+            </if>
+        </where>
+    </select>
+</mapper>
